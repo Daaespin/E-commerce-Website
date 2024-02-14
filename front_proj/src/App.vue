@@ -31,7 +31,7 @@ const goTo = (path) => {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100vh; /* Ensure the container covers the entire viewport height */
+  height: 64px; /* Ensure the container covers the entire viewport height */
   z-index: 10;
 }
 
