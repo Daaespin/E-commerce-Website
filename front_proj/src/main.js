@@ -7,12 +7,14 @@ import LandingPage from './components/LandingPage.vue';
 import InformationPage from './components/InformationPage.vue';
 import ChampionsPage from './components/ChampionsPage.vue';
 import GamemodesPage from './components/GamemodesPage.vue';
+import GalleryPage from "./components/GalleryPage.vue";
 
 const routes = [
     { path: '/', component: LandingPage },
     { path: '/information', component: InformationPage },
     { path: '/champions', component: ChampionsPage },
     { path: '/gamemodes', component: GamemodesPage },
+    { path: '/gallery', component: GalleryPage },
 ];
 
 const router = createRouter({
