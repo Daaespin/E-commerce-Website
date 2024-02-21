@@ -54,8 +54,10 @@ export default {
 }
 
 .header {
+  margin-top: 120px;
   text-align: center;
-  margin-bottom: 20px;
+  font-size: 19px;
+  font-weight: bold;
 }
 
 .content {

@@ -20,7 +20,7 @@ a,
   }
 }
 
-@media (min-width: 1000vw) {
+@media (min-width: 3000vw) {
   body {
     display: flex;
     place-items: center;

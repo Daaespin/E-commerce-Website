@@ -2,14 +2,17 @@
 
     <div class="gallery-page" id="galleryPage">
       <div class="image-container">
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
-        <img class="image" src="../assets/placeholder.png" draggable="false" alt="image"/>
+        <img class="image" src="../assets/piltover_culture_01.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/piltover-zindeloruneterra.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/mttargon-farewell-ceremony.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/mttargon-carved-into-the-mountain.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/ixtal-secrets-02.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/ionia-the-great-monasteries.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/ionia-the-first-lands.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/ionia-life-as-one.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/ionia-an-ancient-and-respected-history.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/shadow-isles-vaults.jpg" draggable="false" alt="image"/>
+        <img class="image" src="../assets/shadow_isles_entities_07.jpg" draggable="false" alt="image"/>
       </div>
     </div>
 
@@ -18,13 +21,11 @@
 <script setup>
 document.addEventListener("DOMContentLoaded", function() {
   const galleryPage = document.getElementById("galleryPage");
-  console.log(galleryPage);
   let startX;
   let scrollLeft;
   let isMouseDown = false; // Track mouse button state
 
   galleryPage.addEventListener("mousedown", function(e) {
-    console.log("mousedown");
     startX = e.pageX - galleryPage.offsetLeft;
     scrollLeft = galleryPage.scrollLeft;
 
@@ -32,19 +33,16 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 
   galleryPage.addEventListener("mouseup", function() {
-    console.log("mouseup");
 
     isMouseDown = false; // Reset mouse button state to false
   });
 
   galleryPage.addEventListener("mouseleave", function() {
-    console.log("mouseleave");
 
     isMouseDown = false; // Reset mouse button state to false
   });
 
   galleryPage.addEventListener("mousemove", function(e) {
-    console.log("mousemove");
     if (!isMouseDown) return; // Check if mouse button is pressed
     const x = e.pageX - galleryPage.offsetLeft;
     const walk = (x - startX) * 0.8; // Adjust the scrolling speed (slower)
@@ -67,12 +65,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
 .image-container {
   display: flex;
-  gap: 20px;
+  gap: 30px;
+  width: 100%;
+  padding: 0 30px;
 }
 
 .image {
-  max-width: 100%;
-  height: auto;
+  margin-top: 70px;
+  max-width: 700px;
+  height: 700px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
