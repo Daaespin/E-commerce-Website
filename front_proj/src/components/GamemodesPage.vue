@@ -4,15 +4,12 @@
     <div class="mode-selector">
       <div class="mode-option" @click="selectMode('Rift')">
         <h3>Summoner's Rift</h3>
-        <p> Image placeholder</p>
       </div>
       <div class="mode-option" @click="selectMode('Aram')">
         <h3>ARAM</h3>
-        <p>Image placeholder</p>
       </div>
       <div class="mode-option" @click="selectMode('TFT')">
         <h3>Teamfight Tactics</h3>
-        <p>Image placeholder</p>
       </div>
     </div>
     <div class="selected-mode">
@@ -25,7 +22,7 @@
 <script>
 import riftBackground from '@/assets/rift.png';
 import aramBackground from '@/assets/aram.jpg';
-import tftBackground from '@/assets/tft.jpg';
+import tftBackground from '@/assets/tft2.jpg';
 
 export default {
   data() {
@@ -47,6 +44,10 @@ export default {
     selectMode(mode) {
       this.selectedMode = mode;
     }
+  },
+  mounted() {
+    // Set Summoner's Rift as default mode on page load
+    this.selectMode('Rift');
   }
 };
 </script>
@@ -56,54 +57,58 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   min-height: 100vh;
   width: 100%;
   background-size: cover;
   background-position: center;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Fira Sans', sans-serif;
   font-weight: bold;
-  font-size: 18px;
-  color: #fdfdfd; /* Dark gray text color */
+  font-size: 25px;
+  color: #fdfdfd;
   z-index: 0;
+}
+
+h2 {
+  margin-top: 100px;
 }
 
 .mode-selector {
   display: flex;
-  justify-content: space-around;
+  flex-direction: column;
+  align-items: flex-end;
   margin-top: 20px;
-  z-index: 10;
 }
 
 .mode-option {
-  width: 30%;
+  margin-left: 1500px;
+  width: 200px;
   padding: 20px;
-  border: 1px solid #ddd; /* Lighter border color */
-  border-radius: 8px; /* Slightly rounder corners */
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-  z-index: 10;
+  margin-bottom: 10px;
+  background-color: #1B1919;
 }
 
 .mode-option:hover {
-  background-color: #1B1919; /* Light gray background on hover */
+  background-color: #413f3f;
 }
 
 .selected-mode {
   margin-top: 40px;
+
 }
 
 .selected-mode h2 {
   font-size: 24px;
   margin-bottom: 10px;
   font-family: 'Montserrat', sans-serif;
-  color: #fffcfc;
-  justify-content: space-around;
+  color: #f1f1f1;
 }
 
 .selected-mode p {
-  font-size: 16px;
-  line-height: 1.6; /* Improved readability with slightly increased line height */
-  justify-content: center;
+  font-size: 26px;
+  line-height: 1.6;
 }
 </style>

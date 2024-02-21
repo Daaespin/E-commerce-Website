@@ -6,24 +6,29 @@
     <img src="../assets/aaaaaaaaaaaa-removebg-preview.png" alt="Your Logo" class="logo">
     <img src="../assets/SocialMedia.png" alt="socials" class="SocialM">
     <div class="overlay">
-      <div class="button-play">PLAY FOR FREE</div>
+      <button class="button-play" @click="openInNewTab('https://authenticate.riotgames.com/')">PLAY FOR FREE</button>
     </div>
     <div class="news-box">
-      <div class="button-new">NEWS UPDATES</div>
-      <div class="arrow-right-double"></div>
+      <a href="#" class="button-new">NEWS UPDATES</a>
     </div>
-  </div>
 
+    <div class="arrow-right-double"></div>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      videoUrl: 'https://www.youtube.com/embed/ZHhqwBwmRkI?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1',
+      videoUrl: 'https://www.youtube.com/embed/ZHhqwBwmRkI?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1&start=10',
       currentPage: 'homeSection', // current section
     };
   },
+  methods: {
+    openInNewTab(url) {
+      window.open(url, '_blank');
+    }
+  }
 };
 </script>
 
@@ -73,25 +78,32 @@ export default {
 .overlay {
   position: absolute;
   top: 80%;
-  left: 43%;
+  left: 42%;
   width: 16%;
   height: 7%;
   background-color: #1B1919;
   border: 1px solid #DFD046;
-  z-index: 10; /* Adjust z-index if needed to layer elements properly */
+  z-index: 10;
 }
+
 .button-play {
   z-index: 10;
-  position: relative  ; /* Position relative to the overlay */
+  position: relative  ;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%); /* Center horizontally and vertically */
-  font-size: 22px; /* Adjust font size as needed */
+  transform: translate(-50%, -50%);
+  font-size: 22px;
   font-family: 'Inter', sans-serif;
   font-weight: bold;
-  color: #f5f1f1; /* Match the outline color */
-  text-align: center; /* Center the text within its container */
+  color: #f5f1f1;
+  text-align: center;
+  cursor: pointer;
+  padding: 10px 20px;
+  border: none;
+  background-color: #1B1919;
 }
+
+
 .news-box {
   position: absolute;
   top: 50%;
@@ -109,12 +121,14 @@ export default {
   top: 12%;
   left: 25%;
   transform: translate(-50%, -50%); /* Center horizontally and vertically */
-  font-size: 23px; /* Adjust font size as needed */
+  font-size: 20px; /* Adjust font size as needed */
   font-weight: initial;
   color: #f5f1f1; /* Match the outline color */
   word-spacing: 40px;
-
+  text-decoration: none; /* Remove default underline for links */
+  display: block; /* Ensure the link takes the full width of its container */
 }
+
 .arrow-right-double {
   position: fixed;
   top: 50%;
@@ -125,6 +139,7 @@ export default {
   border-width: 10px 0 10px 20px;
   border-color: transparent transparent transparent #DFD046;
   transform: translateY(-50%);
+  z-index: 2000;
 }
 
 .arrow-right-double::before {
@@ -137,6 +152,7 @@ export default {
   border-style: solid;
   border-width: 10px 0 10px 15px;
   border-color: transparent transparent transparent #DFD046;
+
 }
 
 </style>
