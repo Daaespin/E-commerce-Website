@@ -32,6 +32,7 @@
 
 <script setup>
 const champions = new Array(20).fill(null); // Create an array with 20 null elements
+
 </script>
 
 <style scoped>
