@@ -1,48 +1,62 @@
 <template>
-
-    <div class="gallery-page" id="galleryPage">
-      <div class="image-container">
-        <img class="image" src="../assets/piltover_culture_01.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/piltover-zindeloruneterra.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/mttargon-farewell-ceremony.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/mttargon-carved-into-the-mountain.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/ixtal-secrets-02.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/ionia-the-great-monasteries.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/ionia-the-first-lands.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/ionia-life-as-one.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/ionia-an-ancient-and-respected-history.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/shadow-isles-vaults.jpg" draggable="false" alt="image"/>
-        <img class="image" src="../assets/shadow_isles_entities_07.jpg" draggable="false" alt="image"/>
-      </div>
+  <div class="gallery-page" id="galleryPage">
+    <div class="image-container">
+      <img v-for="(image, index) in images" :key="index" :src="image" draggable="false" class="image" alt="image"/>
     </div>
-
+  </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from 'vue';
+
+const images = ref([]);
+
+onMounted(async () => {
+  await fetchImages();
+});
+
+async function fetchImages() {
+  try {
+    const response = await fetch('http://localhost:3000/images');
+    const data = await response.json();
+    images.value = data.images.map(image => `http://localhost:3000${image}`);
+  } catch (error) {
+    console.error('Error fetching images from backend:', error);
+  }
+}
+
 document.addEventListener("DOMContentLoaded", function() {
+  console.log('DOMContentLoaded event triggered');
+
   const galleryPage = document.getElementById("galleryPage");
+  if (!galleryPage) {
+    console.error('Gallery page element not found');
+    return;
+  }
+
   let startX;
   let scrollLeft;
   let isMouseDown = false; // Track mouse button state
 
   galleryPage.addEventListener("mousedown", function(e) {
+    console.log('mousedown event triggered');
     startX = e.pageX - galleryPage.offsetLeft;
     scrollLeft = galleryPage.scrollLeft;
-
     isMouseDown = true; // Set mouse button state to true
   });
 
   galleryPage.addEventListener("mouseup", function() {
-
+    console.log('mouseup event triggered');
     isMouseDown = false; // Reset mouse button state to false
   });
 
   galleryPage.addEventListener("mouseleave", function() {
-
+    console.log('mouseleave event triggered');
     isMouseDown = false; // Reset mouse button state to false
   });
 
   galleryPage.addEventListener("mousemove", function(e) {
+    console.log('mousemove event triggered');
     if (!isMouseDown) return; // Check if mouse button is pressed
     const x = e.pageX - galleryPage.offsetLeft;
     const walk = (x - startX) * 0.8; // Adjust the scrolling speed (slower)
@@ -52,15 +66,12 @@ document.addEventListener("DOMContentLoaded", function() {
 </script>
 
 <style scoped>
-
-
 .gallery-page {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
 }
 
 .image-container {
@@ -73,7 +84,7 @@ document.addEventListener("DOMContentLoaded", function() {
 .image {
   margin-top: 70px;
   max-width: 700px;
-  height: 700px;
+  height: 500px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
