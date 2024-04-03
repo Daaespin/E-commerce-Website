@@ -4,25 +4,25 @@
       <h1>CHOOSE YOUR</h1>
       <h2>CHAMPION</h2>
       <p class="text">
-        With more than 170 unique champions to choose, <br> we are sure that you will find your perfect match or you will master them ALL!
+        With more than 150 unique champions to choose, <br> we are sure that you will find your perfect match or you will master them ALL!
       </p>
     </div>
 
     <div class="search-bar-container">
       <div class="search-bar">
-        <input type="text" placeholder="Search champions...">
+        <input type="text" placeholder="Search champions..." v-model="searchQuery" @input="filterChampions">
         <button><img src="../assets/searchLogo.png" alt="Search"></button>
       </div>
     </div>
 
     <div class="champion-list">
-      <div class="champion-row" v-for="row in Math.ceil(champions.length / 4)" :key="row">
-        <div class="champion-item" v-for="column in 4" :key="(row - 1) * 4 + column">
+      <div class="champion-row" v-for="(row, rowIndex) in championRows" :key="rowIndex">
+        <div class="champion-item" v-for="(champion, championIndex) in row" :key="championIndex">
           <div class="champion-frame">
-            <div class="placeholder-image">
-              <img src="../assets/placeholder.png" alt="Kyle" class="loop-place">
+            <div class="image">
+              <img :src="champion.imageLink" :alt="champion.name" class="loop-place">
             </div>
-            <div class="champion-name">Kayle</div>
+            <div class="champion-name">{{ champion.name }}</div>
           </div>
         </div>
       </div>
@@ -31,11 +31,50 @@
 </template>
 
 <script setup>
-const champions = new Array(20).fill(null); // Create an array with 20 null elements
+import {ref, onMounted} from 'vue';
 
+const champions = ref([]);
+const searchQuery = ref('');
+
+async function fetchChampions() {
+  try {
+    const response = await fetch('http://localhost:3000/champions');
+    const data = await response.json();
+    champions.value = data.champions.map(champion => ({
+      name: champion.name,
+      imageLink: `http://localhost:3000${champion.imageLink}`
+    }));
+    organizeChampionsIntoRows();
+  } catch (error) {
+    console.error('Error fetching champions from backend:', error);
+  }
+}
+
+onMounted(async () => {
+  await fetchChampions();
+});
+
+const championRows = ref([]);
+
+function organizeChampionsIntoRows(championsToOrganize = champions.value) {
+  const rows = [];
+  const chunkSize = 5;
+  for (let i = 0; i < championsToOrganize.length; i += chunkSize) {
+    rows.push(championsToOrganize.slice(i, i + chunkSize));
+  }
+  championRows.value = rows;
+}
+
+function filterChampions() {
+  const filteredChampions = champions.value.filter(champion =>
+      champion.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+  );
+  organizeChampionsIntoRows(filteredChampions);
+}
 </script>
 
 <style scoped>
+/* Your existing styles */
 .title {
   text-align: center;
   margin-top: 120px;
@@ -111,29 +150,31 @@ const champions = new Array(20).fill(null); // Create an array with 20 null elem
 
 .champion-row {
   display: flex;
-  justify-content: space-around;
+  justify-content: center; /* Center the rows */
   margin-bottom: 40px;
 }
 
 .champion-item {
   width: 20%;
+  margin: 0 20px; /* Add margin between champion items */
 }
 
 .champion-frame {
   text-align: center;
   position: relative;
-  height: 360px;
-
+  height: 320px;
+  width: 250px;
 }
 
-.placeholder-image {
-  height: 360px;
+.image {
+  height: 100%;
+  width: auto;
 }
 
 .loop-place {
   width: 100%;
   height: 100%;
-  object-fit: fill;
+  object-fit: cover; /* Use cover to maintain aspect ratio */
   border-radius: 20px;
 }
 
@@ -157,6 +198,4 @@ const champions = new Array(20).fill(null); // Create an array with 20 null elem
   transform: scale(1.1);
   transition: transform 0.3s ease;
 }
-
 </style>
-

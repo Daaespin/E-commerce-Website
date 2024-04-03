@@ -16,21 +16,22 @@ const pool = mysql.createPool({
     database: 'website'
 });
 
-// Serve static files from the 'images' directory
+// Serve pictures from the 'images' folder
+//static
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Route to fetch images
+// get the route from mysql
 app.get('/images', async (req, res) => {
     try {
         const connection = await pool.getConnection();
         const [rows] = await connection.query('SELECT image_link FROM gallery2');
         connection.release();
 
-        // Extract image links from the query results
+        // Get image links from the query results and update them to include the '/images/' prefix or it wont load the pictures for some reason
         const images = rows.map(row => `/images/${row.image_link}`); // Update to include the '/images/' prefix
         res.json({ images });
     } catch (error) {
-        console.error('Error fetching images from MySQL:', error);
+        console.error('Error fetching links from MySQL:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
@@ -61,6 +62,42 @@ app.get('/sections', async (req, res) => {
         res.json({ sections: rows });
     } catch (error) {
         console.error('Error fetching sections from MySQL:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.use('/champions', express.static(path.join(__dirname, 'champions')));
+
+// get the route from mysql
+app.get('/champions', async (req, res) => {
+    try {
+        const connection = await pool.getConnection();
+        const [rows] = await connection.query('SELECT champion_name, image_link FROM champs');
+        connection.release();
+
+        const championsData = rows.map(row => ({
+            name: row.champion_name,
+            imageLink: `/champions/${row.image_link}`
+        }));
+
+        res.json({ champions: championsData });
+    } catch (error) {d
+        console.error('Error fetching champions from MySQL:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+});
+
+app.get('/names', async (req, res) => {
+    try {
+        const connection = await pool.getConnection();
+        const [rows] = await connection.query('SELECT champion_name FROM names');
+        connection.release();
+
+        const championNames = rows.map(row => row.champion_name);
+
+        res.json({ names: championNames });
+    } catch (error) {
+        console.error('Error fetching champion names from MySQL:', error);
         res.status(500).json({ error: 'Internal server error' });
     }
 });
