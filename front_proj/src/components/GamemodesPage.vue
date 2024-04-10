@@ -1,6 +1,11 @@
 <template>
   <div class="game-modes-page" :style="{ backgroundImage: `url(${modeBackgrounds[selectedMode]})` }">
     <h2>Game Modes</h2>
+    <div class="video-container">
+      <iframe v-if="selectedMode === 'Rift'" :src="riftVideoUrl" allow="autoplay; encrypted-media" allowfullscreen title=""></iframe>
+      <iframe v-if="selectedMode === 'Aram'" :src="aramVideoUrl" allow="autoplay; encrypted-media" allowfullscreen title=""></iframe>
+      <iframe v-if="selectedMode === 'TFT'" :src="tftVideoUrl" allow="autoplay; encrypted-media" allowfullscreen title=""></iframe>
+    </div>
     <div class="mode-selector">
       <div class="mode-option" @click="selectMode('Rift')">
         <h3>Summoner's Rift</h3>
@@ -37,7 +42,11 @@ export default {
         Rift: riftBackground,
         Aram: aramBackground,
         TFT: tftBackground
-      }
+      },
+      
+      riftVideoUrl: 'https://www.youtube.com/embed/jvAAxvX7pXY?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1&start=100',
+      aramVideoUrl: 'https://www.youtube.com/embed/o-LVPh3VQek?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1&start=10',
+      tftVideoUrl: 'https://www.youtube.com/embed/LLVqm0XfXnc?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&start=5&loop=1'
     };
   },
   methods: {
@@ -68,6 +77,30 @@ export default {
   color: #fdfdfd;
   z-index: 0;
 }
+
+.video-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #1a3e98;
+}
+
+.video-container iframe {
+  width: 180%;
+  height: 100%;
+  border: none;
+  object-fit: cover;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 
 h2 {
   margin-top: 100px;
