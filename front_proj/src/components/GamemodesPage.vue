@@ -43,7 +43,7 @@ export default {
         Aram: aramBackground,
         TFT: tftBackground
       },
-      
+
       riftVideoUrl: 'https://www.youtube.com/embed/jvAAxvX7pXY?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1&start=100',
       aramVideoUrl: 'https://www.youtube.com/embed/o-LVPh3VQek?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&loop=1&start=10',
       tftVideoUrl: 'https://www.youtube.com/embed/LLVqm0XfXnc?controls=0&autoplay=1&modestbranding=1&title=0&mute=1&start=5&loop=1'
@@ -83,20 +83,20 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 400px;
-  height: 400px;
+  width: 500px;
+  height: 500px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid #1a3e98;
+  border: 7px solid #B5C0C9;
 }
 
 .video-container iframe {
   width: 180%;
-  height: 100%;
+  height: 140%;
   border: none;
   object-fit: cover;
   position: relative;
-  top: 50%;
+  top: 48%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -114,13 +114,13 @@ h2 {
 }
 
 .mode-option {
-  margin-left: 1500px;
+  margin-left: 1600px;
   width: 200px;
   padding: 20px;
-  border-radius: 8px;
+  border-radius: 19px;
   cursor: pointer;
   transition: background-color 0.3s, color 0.3s;
-  margin-bottom: 10px;
+  margin-bottom: 25px;
   background-color: #1B1919;
 }
 
@@ -134,10 +134,11 @@ h2 {
 }
 
 .selected-mode h2 {
-  font-size: 24px;
+  font-size: 36px;
   margin-bottom: 10px;
   font-family: 'Montserrat', sans-serif;
   color: #f1f1f1;
+
 }
 
 .selected-mode p {
