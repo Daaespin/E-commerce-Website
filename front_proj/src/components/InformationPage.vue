@@ -5,8 +5,8 @@
       <p>Greetings Summoners,</p>
     </div>
     <div class="content">
-      <div class="section" v-for="(section, index) in sections" :key="index">
-        <img :src="section.image" alt="Placeholder Image">
+      <div class="section" v-for="section in sections" :key="section.id">
+        <img :src="section.imagePath" :alt="section.title">
         <h2>{{ section.title }}</h2>
         <p>{{ section.content }}</p>
       </div>
@@ -34,7 +34,10 @@ export default {
       try {
         const response = await fetch('http://localhost:3000/sections');
         const data = await response.json();
-        this.sections = data.sections;
+        this.sections = data.sections.map(section => ({
+          ...section,
+          imagePath: `src/assets/logo${section.id}.jpg`
+        }));
       } catch (error) {
         console.error('Error fetching sections:', error);
       }
